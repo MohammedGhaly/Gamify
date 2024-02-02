@@ -4,7 +4,11 @@ import ColorModeSwitch from "./ColorModeSwitch";
 import React from "react";
 import SearchInput from "./SearchInput";
 
-function NavBar() {
+interface Props {
+  onSearch: (searchText: string) => void;
+}
+
+function NavBar({ onSearch }: Props) {
   return (
     <HStack paddingRight="20px">
       <Image
@@ -12,7 +16,7 @@ function NavBar() {
         src={logo}
         boxSize="60px"
       />
-      <SearchInput />
+      <SearchInput onSearch={onSearch} />
       <ColorModeSwitch />
     </HStack>
   );
