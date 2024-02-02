@@ -14,30 +14,29 @@ interface Props {
 
 function GameGrid({ gameQuery }: Props) {
   const { data, error, isLoading } = useGames(gameQuery);
+
+  if (error) return <Text>{error}</Text>;
   return (
-    <>
-      {error && <Text>{error}</Text>}
-      <SimpleGrid
-        columns={{ sm: 1, md: 2, lg: 3, "2xl": 4 }}
-        spacing={4}
-        justifyContent="center"
-        paddingY={2}
-      >
-        {isLoading &&
-          skeltons.map((s) => (
-            <GameCardContainer key={s}>
-              <GameCardSkeleton key={s} />
-            </GameCardContainer>
-          ))}
-        {data !== undefined &&
-          !isLoading &&
-          data.map((game) => (
-            <GameCardContainer key={game.id}>
-              <GameCard game={game} key={game.id} />
-            </GameCardContainer>
-          ))}
-      </SimpleGrid>
-    </>
+    <SimpleGrid
+      columns={{ sm: 1, md: 2, lg: 3, "2xl": 4 }}
+      spacing={4}
+      justifyContent="center"
+      paddingY={2}
+    >
+      {isLoading &&
+        skeltons.map((s) => (
+          <GameCardContainer key={s}>
+            <GameCardSkeleton key={s} />
+          </GameCardContainer>
+        ))}
+      {data !== undefined &&
+        !isLoading &&
+        data.map((game) => (
+          <GameCardContainer key={game.id}>
+            <GameCard game={game} key={game.id} />
+          </GameCardContainer>
+        ))}
+    </SimpleGrid>
   );
 }
 
